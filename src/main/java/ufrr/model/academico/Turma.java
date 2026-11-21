@@ -13,19 +13,19 @@ import java.util.ArrayList;
 
 public class Turma {
     // Atributos
-    String codigo;
-    String nome;
-    int capacidadeAtual = 0;
-    int capacidadeMaxima;
-    LocalDate dataInicio;
-    LocalDate dataFinal;
-    String status;
+    private String codigo;
+    private String nome;
+    private int capacidadeAtual = 0;
+    private int capacidadeMaxima;
+    private LocalDate dataInicio;
+    private LocalDate dataFinal;
+    private String status;
 
     // Associações/composições com outras classes
-    List<Discente> discentes = new ArrayList<>();
-    Docente docente;
-    Disciplina disciplina;
-    Departamento departamento;
+    private List<Discente> discentes = new ArrayList<>();
+    private Docente docente;
+    private Disciplina disciplina;
+    private Departamento departamento;
 
     // -- Construtor --
     public Turma(String codigo, String nome, int capacidadeMaxima, String dataInicio, String dataFinal) {

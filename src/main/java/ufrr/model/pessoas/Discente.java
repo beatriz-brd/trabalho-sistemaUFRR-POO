@@ -12,19 +12,19 @@ import model.academico.Turma;
 
 public class Discente {
     // Atributos
-    String matriculaID;
-    String curso;
-    double IRA = 0.0;
-    LocalDate dataIngresso;
-    LocalDate dataNascimento;
+    private String matriculaID;
+    private String curso;
+    private double IRA = 0.0;
+    private LocalDate dataIngresso;
+    private LocalDate dataNascimento;
 
     // Associações/composições com outras classes
-    List<Turma> turmas = new ArrayList<>();
-    List<Matricula> matriculas = new ArrayList<>();
+    private List<Turma> turmas = new ArrayList<>();
+    private List<Matricula> matriculas = new ArrayList<>();
     
     // Constantes de auxílio
-    final LocalDate dataMinimaIngresso = LocalDate.of(1988, 01, 01);
-    final LocalDate dataMinimaNascimento = LocalDate.of(1900, 01, 01);
+    public static final LocalDate DATA_MINIMA_INGRESSO = LocalDate.of(1988, 1, 1);
+    public static final LocalDate DATA_MINIMA_NASCIMENTO = LocalDate.of(1900, 1, 1);
 
     // -- Construtor --
     public Discente(String matriculaID, String curso, double IRA, String DataIngresso, String DataNascimento) {
@@ -36,7 +36,6 @@ public class Discente {
         this.IRA = IRA;
         this.dataIngresso = LocalDate.parse(DataIngresso);
         this.dataNascimento = LocalDate.parse(DataNascimento);
-
     }
 
     // Métodos auxiliares e chamadores das exceções
@@ -67,11 +66,11 @@ public class Discente {
             throw new DiscenteInvalidoException("ERRO: IRA deve estar entre 0 e 10!");
         }
 
-        if (dataMinimaIngresso.isAfter(LocalDate.parse(DataIngresso))) {
+        if (DATA_MINIMA_INGRESSO.isAfter(LocalDate.parse(DataIngresso))) {
             throw new DiscenteInvalidoException("ERRO: A data de ingresso deve ser posterior a 01/01/1988!");
         }
 
-        if (dataMinimaNascimento.isAfter(LocalDate.parse(DataNascimento))) {
+        if (DATA_MINIMA_NASCIMENTO.isAfter(LocalDate.parse(DataNascimento))) {
             throw new DiscenteInvalidoException("ERRO: A data de nascimento deve ser posterior a 01/01/1900!");
         }
     }
