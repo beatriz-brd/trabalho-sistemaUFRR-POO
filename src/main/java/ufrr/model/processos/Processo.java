@@ -80,7 +80,7 @@ public abstract class Processo {
        }
        
        this.status = novo;
-   }
+   }é
     
    protected void arquivarProcesso() throws StatusProcessoInvalido {
         alterarStatus(StatusProcesso.ARQUIVADO);
