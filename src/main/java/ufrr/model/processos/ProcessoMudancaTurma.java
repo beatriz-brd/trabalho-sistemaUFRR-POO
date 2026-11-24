@@ -1,13 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package ufrr.model.processos;
 
-/**
- *
- * @author bea
- */
-public class ProcessoMudancaTurma {
-    
+import java.time.LocalDate;
+import ufrr.model.academico.Disciplina;
+import ufrr.model.academico.Turma;
+
+public class ProcessoMudancaTurma extends Processo {
+
+    public ProcessoMudancaTurma(String numeroProcesso, String interessadoID,
+            Disciplina disciplinaDestino, Turma turmaDestino,
+            LocalDate dataSolicitacao) {
+        super(numeroProcesso, "MUDANCA_TURMA", interessadoID,
+                disciplinaDestino, turmaDestino, dataSolicitacao);
+        if (turmaDestino == null) {
+            throw new IllegalArgumentException("Mudança de turma exige a turma desejada");
+        }
+    }
+
+    @Override
+    public void resolver() {
+        // Regra delegada ao service
+    }
 }
