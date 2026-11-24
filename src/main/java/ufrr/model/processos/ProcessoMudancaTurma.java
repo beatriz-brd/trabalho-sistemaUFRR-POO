@@ -9,11 +9,13 @@ public class ProcessoMudancaTurma extends Processo {
     public ProcessoMudancaTurma(String numeroProcesso, String interessadoID,
             Disciplina disciplinaDestino, Turma turmaDestino,
             LocalDate dataSolicitacao) {
-        super(numeroProcesso, "MUDANCA_TURMA", interessadoID,
-                disciplinaDestino, turmaDestino, dataSolicitacao);
+        
         if (turmaDestino == null) {
             throw new IllegalArgumentException("Mudança de turma exige a turma desejada");
         }
+        super(numeroProcesso, "MUDANCA_TURMA", interessadoID,
+                disciplinaDestino, turmaDestino, dataSolicitacao);
+        
     }
 
     @Override
