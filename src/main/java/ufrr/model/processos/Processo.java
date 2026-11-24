@@ -1,21 +1,98 @@
 package ufrr.model.processos;
 
 import ufrr.model.academico.Turma;
+import ufrr.model.academico.Disciplina;
 import java.time.LocalDate;
 
+import ufrr.exception.StatusProcessoInvalido;
+
+
 public abstract class Processo {
-   private String numeroProcesso;
-   private String objetoProcesso;
-   private String interressadoID;
-   private Disciplina diciplinaDestino;
+   private final String numeroProcesso;
+   private final String objetoProcesso;
+   private final String interessadoID;
+   private Disciplina disciplinaDestino;
    private Turma turmaDestino;
-   private LocalDate dataSolicitacao;
-   private String status;
+   private final LocalDate dataSolicitacao;
+   private StatusProcesso status;
    
-   protected abstract void arquivarProcesso();
-   protected abstract void indeferirProcesso();   
-   protected abstract void deferirProcesso();
-   public abstract void resolver();
-   protected abstract void alterarStatus();
+   //enum para evitar erros de escrita
+   public enum StatusProcesso{
+        ABERTO,
+        DEFERIDO,
+        INDEFERIDO,
+        ARQUIVADO
+    }
    
+   //construtor
+   public Processo(String numeroProcesso, String objetoProcesso,
+           String interessadoID, Disciplina disciplinaDestino,
+           Turma turmaDestino, LocalDate dataSolicitacao, StatusProcesso status) {
+        this.numeroProcesso = numeroProcesso;
+        this.objetoProcesso = objetoProcesso;
+        this.interessadoID = interessadoID;
+        this.disciplinaDestino = disciplinaDestino;
+        this.turmaDestino = turmaDestino;
+        this.dataSolicitacao = dataSolicitacao;
+        this.status = status;
+    }
+
+   //getters
+    public String getNumeroProcesso() {
+        return numeroProcesso;
+    }
+
+    public String getObjetoProcesso() {
+        return objetoProcesso;
+    }
+
+    public String getInteressadoID() {
+        return interessadoID;
+    }
+
+    public Disciplina getDisciplinaDestino() {
+        return disciplinaDestino;
+    }
+
+    public Turma getTurmaDestino() {
+        return turmaDestino;
+    }
+
+    public LocalDate getDataSolicitacao() {
+        return dataSolicitacao;
+    }
+
+    public StatusProcesso getStatus() {
+        return status;
+    }
+    
+    
+    //metodos
+    /*diferenca para o uml: status é enum, e alterar status é publico com validacao*/
+    
+    public void alterarStatus(StatusProcesso novo) 
+       throws StatusProcessoInvalido{
+        if (status == null) {
+            throw new StatusProcessoInvalido("ERRO: O status do processo não pode ser nulo!");
+        }       
+       if(status != StatusProcesso.ABERTO){
+           throw new StatusProcessoInvalido("Processo: " + numeroProcesso + " ja esta " + status + " e nao pode mudar!");
+       }
+       
+       this.status = novo;
+   }
+    
+   protected void arquivarProcesso() throws StatusProcessoInvalido {
+        alterarStatus(StatusProcesso.ARQUIVADO);
+   };
+   
+   protected void indeferirProcesso() throws StatusProcessoInvalido {
+        alterarStatus(StatusProcesso.INDEFERIDO);
+   };   
+   
+   protected void deferirProcesso() throws StatusProcessoInvalido {
+        alterarStatus(StatusProcesso.DEFERIDO);
+   };
+   
+   public abstract void resolver();   
 }
