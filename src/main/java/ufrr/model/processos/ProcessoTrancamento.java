@@ -31,6 +31,16 @@ public class ProcessoTrancamento extends Processo{
         
     }
     
+    // getters
+    public String getMotivoTrancamento() {
+        return motivoTrancamento;
+    }
+
+    public boolean isTrancamentoValido() {
+        return trancamentoValido;
+    }
+    
+    
     @Override
     public void resolver(){};
 
