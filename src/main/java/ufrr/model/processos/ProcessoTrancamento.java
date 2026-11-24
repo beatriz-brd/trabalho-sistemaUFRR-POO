@@ -1,14 +1,37 @@
 package ufrr.model.processos;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+import java.time.LocalDate;
+import ufrr.model.academico.Disciplina;
+import ufrr.model.academico.Turma;
 
-/**
- *
- * @author bea
- */
-public class ProcessoTrancamento {
+import ufrr.exception.TurmaInvalidaException;
+
+
+public class ProcessoTrancamento extends Processo{
+    private final String motivoTrancamento;
+    private boolean trancamentoValido = false;
+
+    public ProcessoTrancamento(String numeroProcesso, String interessadoID,
+        Disciplina disciplinaDestino, Turma turmaDestino,
+        LocalDate dataSolicitacao, String motivoTrancamento) {
+
+        super(numeroProcesso, "TRANCAMENTO", interessadoID,
+                disciplinaDestino, turmaDestino, dataSolicitacao);
+
+        if(turmaDestino == null){
+            throw new TurmaInvalidaException("Trancamento exige a turma ser trancada! ");
+        }
+        if(motivoTrancamento == null){
+            throw new IllegalArgumentException("O Processo de trancamento precisa de um motivo! ");
+        }
+        
+        
+        this.motivoTrancamento = motivoTrancamento;
+        this.trancamentoValido = true;
+        
+    }
     
+    @Override
+    public void resolver(){};
+
 }
