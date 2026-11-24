@@ -24,20 +24,33 @@ public abstract class Processo {
         ARQUIVADO
     }
    
+   //ajustado construtor e adicionada verificacao de parametros (declarado metodo auxiliar exigirTexto)
    //construtor
    public Processo(String numeroProcesso, String objetoProcesso,
            String interessadoID, Disciplina disciplinaDestino,
-           Turma turmaDestino, LocalDate dataSolicitacao, StatusProcesso status) {
+           Turma turmaDestino, LocalDate dataSolicitacao) {
+       
+       exigirTexto(numeroProcesso, "numeroProcesso");
+       exigirTexto(objetoProcesso, "objetoProcesso");
+       exigirTexto(objetoProcesso, "interessadoID");
+       
         this.numeroProcesso = numeroProcesso;
         this.objetoProcesso = objetoProcesso;
         this.interessadoID = interessadoID;
         this.disciplinaDestino = disciplinaDestino;
         this.turmaDestino = turmaDestino;
         this.dataSolicitacao = dataSolicitacao;
-        this.status = status;
+        this.status = StatusProcesso.ABERTO;
+    }
+   
+   // metodo auxiliar
+    private static void exigirTexto(String valor, String nome) {
+        if (valor == null || valor.isBlank()) {
+            throw new IllegalArgumentException(nome + " não pode ser nulo ou vazio");
+        }
     }
 
-   //getters
+   // getters
     public String getNumeroProcesso() {
         return numeroProcesso;
     }
@@ -67,8 +80,8 @@ public abstract class Processo {
     }
     
     
-    //metodos
-    /*diferenca para o uml: status é enum, e alterar status é publico com validacao*/
+    // metodos
+    /* diferenca para o uml: status é enum, e alterar status é publico com validacao */
     
     public void alterarStatus(StatusProcesso novo) 
        throws StatusProcessoInvalido{
