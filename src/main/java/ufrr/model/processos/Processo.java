@@ -32,7 +32,7 @@ public abstract class Processo {
        
        exigirTexto(numeroProcesso, "numeroProcesso");
        exigirTexto(objetoProcesso, "objetoProcesso");
-       exigirTexto(objetoProcesso, "interessadoID");
+       exigirTexto(interessadoID, "interessadoID");
        
         this.numeroProcesso = numeroProcesso;
         this.objetoProcesso = objetoProcesso;
@@ -49,7 +49,7 @@ public abstract class Processo {
             throw new IllegalArgumentException(nome + " não pode ser nulo ou vazio");
         }
     }
-
+    
    // getters
     public String getNumeroProcesso() {
         return numeroProcesso;
